@@ -1,11 +1,15 @@
 Pong = Object:extend()
+config = require 'conf'
+function Pong:resetPos()
+	self.x = config.WIDTH/2 - self.w/2
+	self.y = config.HEIGHT/2 - self.h/2
+end
 function Pong:new()
-	self.x = 200
-	self.y = 300
 	self.w = 20
 	self.h = 20
+	self:resetPos()
 	self.speed = 30
-	self.accel = 0
+	self.accel = 10
 	self.xv = 1 -- X vector -1 or 1
 	self.yv = 1 -- Y verctor -1 or 1
 	self.p1Score = 0
@@ -25,18 +29,22 @@ function Pong:update(dt)
 		self.p1Score = self.p1Score + 1
 		self.x = 0
 		self.xv = self.xv * -1
+		self:resetPos()
+		frozen = true
 	end
 	if self.y < 0 then
 		self.y = 0
 		self.yv = self.yv * -1
 	end
-	if self.x > 550 - self.w then
+	if self.x > config.WIDTH - self.w then
 		self.p2Score = self.p2Score + 1
-		self.x = 550 - self.w
+		self.x = config.WIDTH - self.w
 		self.xv = self.xv * -1
+		self:resetPos()
+		frozen = true
 	end
-	if self.y > 550 - self.h then
-		self.y = 550 - self.h
+	if self.y > config.HEIGHT - self.h then
+		self.y = config.HEIGHT - self.h
 		self.yv = self.yv * -1
 	end
 	
