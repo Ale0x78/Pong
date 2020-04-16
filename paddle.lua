@@ -1,4 +1,5 @@
 Paddle = Object:extend()
+config = require 'conf'
 function Paddle:new(x,y,w,h,up,down)
 	self.x = x
 	self.y = y
@@ -49,11 +50,11 @@ function Paddle:update(dt)
 	if self.y < 0 then
 		self.y = 0
 	end
-	if self.x > 550 - self.w then
-		self.x = 550 - self.w
+	if self.x > config.WIDTH - self.w then
+		self.x = config.WIDTH - self.w
 	end
-	if self.y > 550 - self.h then
-		self.y = 550 - self.h
+	if self.y > config.HEIGHT - self.h then
+		self.y = config.HEIGHT - self.h
 	end
 end
 function Paddle:move(x,y,dt)
